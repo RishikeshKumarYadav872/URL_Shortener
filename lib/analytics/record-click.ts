@@ -36,7 +36,7 @@ function parseUserAgent(ua: string): { browser: string; os: string; device: stri
 }
 
 export async function recordClick({ urlId, request }: RecordClickInput): Promise<void> {
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const appUrl = request.nextUrl.origin;
   const ua = request.headers.get("user-agent") || "";
   const referer = request.headers.get("referer") || null;
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0] || request.headers.get("x-real-ip") || null;

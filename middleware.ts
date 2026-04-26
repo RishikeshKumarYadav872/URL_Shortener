@@ -74,7 +74,7 @@ export default async function middleware(request: NextRequest) {
 }
 
 async function recordClickFromEdge(urlId: string, request: NextRequest): Promise<void> {
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const appUrl = request.nextUrl.origin;
   try {
     await fetch(`${appUrl}/api/internal/click`, {
       method: "POST",
