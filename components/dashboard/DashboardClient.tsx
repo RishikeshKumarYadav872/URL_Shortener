@@ -54,6 +54,21 @@ export default function DashboardClient() {
     } catch { /* fallback */ }
   }
 
+  async function toggleStatus(id: string, currentStatus: boolean) {
+    setUrls(urls.map((u) => u.id === id ? { ...u, isActive: !currentStatus } : u));
+    try {
+      const res = await fetch(`/api/dashboard/urls/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isActive: !currentStatus }),
+      });
+      if (!res.ok) throw new Error("Failed to toggle");
+    } catch (e) {
+      setUrls(urls.map((u) => u.id === id ? { ...u, isActive: currentStatus } : u));
+      console.error("Toggle error:", e);
+    }
+  }
+
   const totalLinks = urls.length;
   const totalClicks = urls.reduce((sum, u) => sum + u.clickCount, 0);
   const activeLinks = urls.filter((u) => u.isActive).length;
@@ -149,6 +164,12 @@ export default function DashboardClient() {
                       onClick={() => copyLink(url.slug, url.id)}
                     >
                       {copiedId === url.id ? "✓" : "Copy"}
+                    </button>
+                    <button
+                      className={`${styles.actionBtn} ${url.isActive ? styles.dangerBtn : styles.successBtn}`}
+                      onClick={() => toggleStatus(url.id, url.isActive)}
+                    >
+                      {url.isActive ? "Deactivate" : "Activate"}
                     </button>
                   </span>
                 </motion.div>

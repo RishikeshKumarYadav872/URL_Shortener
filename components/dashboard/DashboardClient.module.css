@@ -58,6 +58,8 @@
   font-size: 0.75rem; cursor: pointer; transition: all var(--transition-fast);
 }
 .actionBtn:hover { border-color: var(--accent-teal); color: var(--accent-teal-light); }
+.dangerBtn:hover { border-color: rgba(239,68,68,0.5); color: #fca5a5; background: rgba(239,68,68,0.1); }
+.successBtn:hover { border-color: rgba(16,185,129,0.5); color: #6ee7b7; background: rgba(16,185,129,0.1); }
 @media (max-width: 768px) {
   .statsGrid { grid-template-columns: repeat(2,1fr); }
   .tableHeader, .tableRow { grid-template-columns: 1fr 1fr 0.6fr; }
