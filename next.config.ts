@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Ensure Prisma works correctly on Vercel
+  serverExternalPackages: ["pg"],
 };
 
 export default nextConfig;
